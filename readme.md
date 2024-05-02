@@ -85,3 +85,17 @@ config.plist
     ├── 7C436110-AB2A-4BBB-A880-FE41995C9F82
           ├── boot-args | String | alcid=11
 ```
+
+### [Fix mouse not working safari](https://github.com/archagon/sensible-side-buttons)
+
+### [Fix Bluetooth](https://dortania.github.io/OpenCore-Install-Guide/ktext.html#wifi-and-bluetooth)
+
+### Fix GG Chrome
+
+![](./image-2.png)
+
+```
+open -a Google\ Chrome --args --disable-gpu
+```
+
+- For the browsers you can disable GPU Rasterisation inside chrome://flags

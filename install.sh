@@ -8,3 +8,6 @@ brew install --cask dbeaver-community
 brew install --cask mongodb-compass
 brew install --cask visual-studio-code
 brew install --cask telegram-desktop
+brew install mysql
+brew install redis
+brew install --cask gcollazo-mongodb
