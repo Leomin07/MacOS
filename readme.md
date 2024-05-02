@@ -71,3 +71,17 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/xzhih/one-key-hidpi/mast
 ```
 
 ### [Map keyboard](https://karabiner-elements.pqrs.org)
+
+### Fix audio
+
+- Audio codec `ALC887` support: 0x100202, 0x100302, layout 1, 2, 3, 5, 7, 11, 12, 13, 17, 18, 20, 33, 40, 50, 52, 53, 87, 99
+- Audio codec `ALC897` support: 0x100402, 0x100500, layout 11, 12, 13, 21, 23, 66, 69, 77, 98, 99
+- To test out our layout IDs, we're going to be using the boot-arg `alcid=xxx` (recommend `alcid=11`) where xxx is your layout. Remember that to try layout IDs one at a time. Do not add multiple IDs or alcid boot-args, if one doesn't work then try the next ID and etc
+
+```
+config.plist
+├── NVRAM
+  ├── Add
+    ├── 7C436110-AB2A-4BBB-A880-FE41995C9F82
+          ├── boot-args | String | alcid=11
+```
