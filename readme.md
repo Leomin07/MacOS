@@ -9,6 +9,10 @@ defaults write com.apple.dock autohide-delay -float 0;killall Dock
 ### Install Git
 
 ```
+chmod u+x path/install.sh
+```
+
+```
 sudo apt install git -y
 
 git config --global user.name "MinhTD"
@@ -70,8 +74,6 @@ AGNOSTER_PATH_STYLE=shrink
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/xzhih/one-key-hidpi/master/hidpi.sh)"
 ```
 
-### [Map keyboard](https://karabiner-elements.pqrs.org)
-
 ### Fix audio
 
 - Audio codec `ALC887` support: 0x100202, 0x100302, layout 1, 2, 3, 5, 7, 11, 12, 13, 17, 18, 20, 33, 40, 50, 52, 53, 87, 99
@@ -99,3 +101,12 @@ open -a Google\ Chrome --args --disable-gpu
 ```
 
 - For the browsers you can disable GPU Rasterisation inside chrome://flags
+
+### Fix can't write data NTFS
+
+```
+brew install --cask macfuse
+brew tap gromgit/homebrew-fuse
+brew install ntfs-3g-mac
+brew install --cask mounty
+```
