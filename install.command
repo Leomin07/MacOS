@@ -1,10 +1,11 @@
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew install node
 npm i -g yarn
-brew install python@3.12
+brew install python
 brew install git
+brew install --cask brave-browser
+brew install --cask keka
 brew install --cask google-chrome
-brew install --cask archiver
 brew install --cask postman
 brew install --cask dbeaver-community
 brew install --cask mongodb-compass
@@ -19,6 +20,12 @@ brew install --cask amd-power-gadget
 brew install --cask evkey
 brew install --cask cloudflare-warp
 brew install --cask karabiner-elements
+brew install MonitorControl
+brew install ffmpeg
+brew install --cask stats
+brew install --cask openinterminal-lite
+brew install --cask openineditor-lite
+brew install --cask notion
 brew install zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
