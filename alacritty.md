@@ -1,29 +1,36 @@
 ### Add themes
+
 ```
 cd ~/.config/alacritty
 ```
+
 ```
 git clone https://github.com/alacritty/alacritty-theme themes
 ```
 
 ### Config alacritty
+
 ```
-mkdir -p ~/.config/alacritty
+mkdir -p ~/.config/alacritty && cd ~/.config/alacritty && git clone https://github.com/alacritty/alacritty-theme themes
 ```
+
 ```
 cd ~/.config/alacritty
 ```
+
 ```
 cd ~/.config/alacritty
 ```
+
 ```
 nano alacritty.toml
 ```
+
 or
+
 ```
 code alacritty.toml
 ```
-
 
 ```
 import = [
@@ -46,6 +53,7 @@ size = 13
 ### Better zsh history completion with up, down arrows
 
 - Open ~/.zshrc
+
 ```
 # history setup
 HISTFILE=$HOME/.zhistory
@@ -59,4 +67,3 @@ setopt hist_verify
 bindkey '^[[A' history-search-backward
 bindkey '^[[B' history-search-forward
 ```
-

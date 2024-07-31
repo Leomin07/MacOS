@@ -13,24 +13,19 @@ brew install --cask dbeaver-community
 brew install --cask mongodb-compass
 brew install --cask visual-studio-code
 brew install --cask telegram-desktop
-brew install mysql
-brew services start mysql
-brew install mysql pkg-config
-brew install redis
-brew services start redis
-brew install --cask gcollazo-mongodb
-brew install --cask amd-power-gadget
 brew install --cask evkey
 brew install --cask cloudflare-warp
 brew install --cask karabiner-elements
-brew install MonitorControl
 brew install ffmpeg
 brew install --cask stats
+brew install python-tk
 brew install --cask openinterminal-lite
 brew install --cask openineditor-lite
 defaults write wang.jianing.app.OpenInTerminal-Lite LiteDefaultTerminal Alacritty
 brew install --cask notion
 brew install --cask dotnet-sdk
+brew install --cask docker
+brew install --cask balenaetcher
 brew install zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 

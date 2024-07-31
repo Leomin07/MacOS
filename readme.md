@@ -2,10 +2,6 @@
 
 defaults write com.apple.dock autohide-delay -float 0;killall Dock
 
-### Fix Vram igpu amd
-
-![image](image.jpeg)
-
 ### Install Git
 
 ```
@@ -96,14 +92,12 @@ config.plist
 
 ![image](image-3.jpg)
 
-### Search file duplicate
-
-```
-brew install --cask gemini
-```
-
 ### Chanage boot default opencore
 
 - Hold Ctrl and enter boot item.
 
 ### Download [m3u8](https://greasyfork.org/en/scripts/449581-m3u8%E8%A7%86%E9%A2%91%E4%BE%A6%E6%B5%8B%E4%B8%8B%E8%BD%BD%E5%99%A8-%E8%87%AA%E5%8A%A8%E5%97%85%E6%8E%A2)
+
+### Fix lag mouse
+
+- Remove all `Library/Caches`

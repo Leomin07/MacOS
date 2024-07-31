@@ -5,7 +5,15 @@ sudo sh -c 'echo /usr/local/bin/fish >> /etc/shells'
 ```
 
 ```
-chsh -s /usr/local/bin/fish
+chsh -s $(which fish)
+```
+
+### Fix get Venv python
+
+- Add .fish to end line.
+
+```
+source venv/bin/activate.fish
 ```
 
 ### Custom prompt_pwd
