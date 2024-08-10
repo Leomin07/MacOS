@@ -90,7 +90,7 @@ config.plist
 
 ### Fix wrong date-time dual boot
 
-![image](image-3.jpg)
+![image](images/image-3.jpg)
 
 ### Chanage boot default opencore
 
@@ -101,3 +101,24 @@ config.plist
 ### Fix lag mouse
 
 - Remove all `Library/Caches`
+
+#### Unzip multi files
+
+- Cho vào cùng 1 folder
+- cmd:
+
+```
+cd vào folder chứa file
+
+unzip '*.zip' -d ./
+```
+
+### Crack Jetbrain
+
+```
+xattr -cr /Applications/IntelliJ\ IDEA.app
+
+xattr -cr /Applications/WebStorm.app
+
+xattr -cr /Applications/PyCharm.app
+```

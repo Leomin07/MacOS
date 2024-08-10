@@ -12,7 +12,6 @@ brew install --cask postman
 brew install --cask dbeaver-community
 brew install --cask mongodb-compass
 brew install --cask visual-studio-code
-brew install --cask telegram-desktop
 brew install --cask evkey
 brew install --cask cloudflare-warp
 brew install --cask karabiner-elements
@@ -22,10 +21,13 @@ brew install python-tk
 brew install --cask openinterminal-lite
 brew install --cask openineditor-lite
 defaults write wang.jianing.app.OpenInTerminal-Lite LiteDefaultTerminal Alacritty
-brew install --cask notion
 brew install --cask dotnet-sdk
 brew install --cask docker
 brew install --cask balenaetcher
+brew install --cask iina
+brew install --cask notion
+brew install --cask the-unarchiver
+brew install --cask telegram-desktop
 brew install zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 

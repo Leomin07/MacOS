@@ -2,10 +2,17 @@
 
 ```
 sudo sh -c 'echo /usr/local/bin/fish >> /etc/shells'
+
 ```
 
 ```
 chsh -s $(which fish)
+```
+
+### [Starship](https://github.com/starship/starship)
+
+```
+echo "starship init fish | source" >> ~/.config/fish/config.fish
 ```
 
 ### Fix get Venv python
@@ -16,7 +23,7 @@ chsh -s $(which fish)
 source venv/bin/activate.fish
 ```
 
-### Custom prompt_pwd
+### Custom prompt_pwd omf
 
 - Add to file `/Users/minhtd/.local/share/omf/themes/agnoster/functions`
 
@@ -49,5 +56,26 @@ function prompt_pwd --d "Print the current working directory, shortened to fit t
         # Shorten to at most $fish_prompt_pwd_dir_length characters per directory
         string replace -ar '(\.?[^/]{'"$fish_prompt_pwd_dir_length"'})[^/]*/' '$1/' $tmp
     end
+end
+```
+
+### Custom theme
+
+```
+nano ~/.config/fish/config.fish
+```
+
+```
+if status is-interactive
+	set -g theme_nerd_fonts yes
+	set -g theme_color_scheme dark
+	set -g theme_display_git_default_branch yes
+	set -g theme_title_display_process yes
+	set -g theme_title_display_path no
+	set -g theme_title_use_abbreviated_path no
+	set -g theme_date_format "+%d/%m/%y %H:%M"
+	set -g theme_display_jobs_verbose yes
+	set -g theme_display_user yes
+	set -g theme_display_hostname yes
 end
 ```
