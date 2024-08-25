@@ -6,7 +6,6 @@ brew install git
 brew install --cask alacritty
 brew install --cask font-jetbrains-mono-nerd-font
 brew install --cask brave-browser
-brew install --cask keka
 brew install --cask google-chrome
 brew install --cask postman
 brew install --cask dbeaver-community
@@ -28,10 +27,13 @@ brew install --cask iina
 brew install --cask notion
 brew install --cask the-unarchiver
 brew install --cask telegram-desktop
+brew install --cask stremio
 brew install starship
 brew install fish
+brew install --cask mos
+brew install --cask easydict
 
-fish
+
 curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
 
 fisher install gazorby/fish-abbreviation-tips

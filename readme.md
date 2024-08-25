@@ -122,3 +122,41 @@ xattr -cr /Applications/WebStorm.app
 
 xattr -cr /Applications/PyCharm.app
 ```
+
+###
+
+```
+allow pasting
+```
+
+```
+var styles = `
+  .mc_live .mc_l-right{
+    display: none
+  }
+  .mc_live .mc_l-left {
+      width: calc(100% - 0px);
+      float: left;
+  }
+`
+
+var styleSheet = document.createElement("style")
+styleSheet.textContent = styles
+document.head.appendChild(styleSheet)
+```
+
+### Remove file `.DS_Store`
+
+```
+find . -name ".DS_Store" -print -delete
+```
+
+### [Fix gui picker opencore](https://dortania.github.io/OpenCore-Post-Install/cosmetic/gui.html#setting-up-opencore-s-gui)
+
+![image](images/fix-gui-opencore.png)
+
+###
+
+```
+brew install MonitorControl
+```
