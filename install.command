@@ -28,6 +28,7 @@ brew install --cask iina
 brew install --cask notion
 brew install --cask the-unarchiver
 brew install --cask telegram-desktop
+brew install starship
 brew install zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
