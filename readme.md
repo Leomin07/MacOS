@@ -1,65 +1,7 @@
-### Fix 'zsh: permission denied: file command'
-- Open terminal in file and run:
-```
-chmod +x 'file name'
-```
-
 ### Remove delay auto hidden dock
-
+```
 defaults write com.apple.dock autohide-delay -float 0;killall Dock
-
-### Install Git
-
 ```
-chmod u+x path/install.sh
-```
-
-```
-sudo apt install git -y
-
-git config --global user.name "MinhTD"
-git config --global user.name "tranminhsvp@gmail.com"
-
-ssh-keygen -t ed25519 -C "tranminhsvp@gmail.com"
-
-```
-
-### Install zsh & oh-my-zsh
-
-```
-brew install zsh
-```
-
-```
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-```
-
-```
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-
-git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
-```
-
-```
-nano .zshrc
-```
-
-```
-ZSH_THEME="agnoster"
-```
-
-```
-plugins=(
-    zsh-autosuggestions zsh-completions zsh-syntax-highlighting git aliases
-)
-```
-
-```
-source .zshrc
-```
-
 ### Install theme agnoster
 
 - Find location .oh-my-zsh: `home/.oh-my-zsh/themes`
@@ -90,13 +32,6 @@ config.plist
           ├── boot-args | String | alcid=11
 ```
 
-### [Fix mouse not working safari](https://github.com/archagon/sensible-side-buttons)
-
-### [Fix Bluetooth](https://dortania.github.io/OpenCore-Install-Guide/ktext.html#wifi-and-bluetooth)
-
-### Fix wrong date-time dual boot
-
-![image](images/image-3.jpg)
 
 ### Chanage boot default opencore
 
@@ -117,16 +52,6 @@ config.plist
 cd vào folder chứa file
 
 unzip '*.zip' -d ./
-```
-
-### Crack Jetbrain
-
-```
-xattr -cr /Applications/IntelliJ\ IDEA.app
-
-xattr -cr /Applications/WebStorm.app
-
-xattr -cr /Applications/PyCharm.app
 ```
 
 ###
@@ -151,18 +76,19 @@ styleSheet.textContent = styles
 document.head.appendChild(styleSheet)
 ```
 
-### Remove file `.DS_Store`
-
-```
-find . -name ".DS_Store" -print -delete
-```
 
 ### [Fix gui picker opencore](https://dortania.github.io/OpenCore-Post-Install/cosmetic/gui.html#setting-up-opencore-s-gui)
 
 ![image](images/fix-gui-opencore.png)
 
-###
+
+### Parallels
 
 ```
-brew install MonitorControl
+cd desktop/thuoc
+xattr -cr * && chmod +x *.sh && sudo ./patch.sh
+```
+- Or crash
+```
+codesign -fs – ‘/Applications/Parallels Desktop.app/Contents/Frameworks/91QiuChenly.dylib’
 ```
