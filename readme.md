@@ -1,4 +1,4 @@
-### Fix 'zsh: permission denied: file command'
+### Fix "zsh: permission denied: file command"
 - Open terminal in file and run:
 ```
 chmod +x 'file name'
@@ -10,16 +10,17 @@ defaults write com.apple.dock autohide-delay -float 0;killall Dock
 
 ### Install Git
 
-```
-chmod u+x path/install.sh
-```
 
 ```
-sudo apt install git -y
-
+brew install git
+```
+```
 git config --global user.name "MinhTD"
+```
+```
 git config --global user.name "tranminhsvp@gmail.com"
-
+```
+```
 ssh-keygen -t ed25519 -C "tranminhsvp@gmail.com"
 
 ```
@@ -165,4 +166,14 @@ find . -name ".DS_Store" -print -delete
 
 ```
 brew install MonitorControl
+```
+### Parallels
+
+```
+cd desktop/thuoc
+xattr -cr * && chmod +x *.sh && sudo ./patch.sh
+```
+- Or crash
+```
+codesign -fs – ‘/Applications/Parallels Desktop.app/Contents/Frameworks/91QiuChenly.dylib’
 ```

@@ -19,10 +19,6 @@ cd ~/.config/alacritty
 ```
 
 ```
-cd ~/.config/alacritty
-```
-
-```
 nano alacritty.toml
 ```
 
@@ -33,9 +29,6 @@ code alacritty.toml
 ```
 
 ```
-import = [
-    "~/.config/alacritty/themes/themes/dracula.toml"
-]
 [env]
 TERM = "xterm-256color"
 
@@ -47,6 +40,11 @@ padding.y = 10
 normal.family = "JetBrainsMono Nerd Font"
 
 size = 13
+
+[general]
+import = [
+    "~/.config/alacritty/themes/themes/dracula.toml"
+]
 
 ```
 

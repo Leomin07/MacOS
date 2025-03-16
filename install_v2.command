@@ -25,13 +25,15 @@ brew install --cask docker
 brew install --cask balenaetcher
 brew install --cask iina
 brew install --cask notion
-brew install --cask the-unarchiver
+brew install --cask keka
 brew install --cask telegram-desktop
 brew install --cask stremio
 brew install starship
-brew install fish
 brew install --cask mos
 brew install --cask easydict
+brew install lihaoyun6/tap/quickrecorder
+brew install MonitorControl
+brew install fish
 
 
 curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher

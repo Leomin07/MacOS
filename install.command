@@ -26,11 +26,13 @@ brew install --cask docker
 brew install --cask balenaetcher
 brew install --cask iina
 brew install --cask notion
-brew install --cask the-unarchiver
+brew install --cask keka
 brew install --cask telegram-desktop
 brew install starship
 brew install --cask mos
 brew install --cask easydict
+brew install lihaoyun6/tap/quickrecorder
+
 brew install zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
