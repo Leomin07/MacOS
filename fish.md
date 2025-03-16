@@ -2,7 +2,6 @@
 
 ```
 sudo sh -c 'echo /usr/local/bin/fish >> /etc/shells'
-
 ```
 
 ```
@@ -78,4 +77,6 @@ if status is-interactive
 	set -g theme_display_user yes
 	set -g theme_display_hostname yes
 end
+starship init fish | source
+
 ```
