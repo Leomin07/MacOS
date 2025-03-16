@@ -1,3 +1,9 @@
+### Fix 'zsh: permission denied: file command'
+- Open terminal in file and run:
+```
+chmod +x 'file name'
+```
+
 ### Remove delay auto hidden dock
 
 defaults write com.apple.dock autohide-delay -float 0;killall Dock
