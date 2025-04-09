@@ -1,42 +1,57 @@
 #!/bin/bash
-#  _       ______ ____  __  __ _____ _   _
-# | |     |  ____/ __ \|   \/   |_   _| \ | |
-# | |     | |__ | |  | |  \  /   | | |  \| |
-# | |     |  __|| |  | |  |\/    | | | . ` |
-# | |____ | |___| |__| |  |  |   | | | |\  |
-# |______|______\____/|_|  |_|   |_| |_| \_|
 
-set -euo pipefail # Exit on errors, unset vars, and pipe failures
-
+# --- Constants ---
 LOG_FILE="$HOME/setup.log"
-LOG_DATE=$(date +'%Y-%m-%d %H:%M:%S')
+DOTFILES_REPO="https://github.com/Leomin07/dotfiles.git"
+GIT_NAME="MinhTD"
+GIT_EMAIL="tranminhsvp@gmail.com"
+SSH_EMAIL="tranminhsvp@gmail.com"
 
+
+# --- Variables ---
+LOG_DATE=$(date +'%Y-%m-%d %H:%M:%S')
+dotfiles_dir="$HOME/.dotfiles"
+ssh_key="$HOME/.ssh/id_ed25519"
+public_key="${ssh_key}.pub"
+
+# --- Functions ---
+
+# Function to log messages
 log() {
-  echo "$LOG_DATE - $1" | tee -a "$LOG_FILE"
+  local message="$1"
+  local timestamp=$(date +'%Y-%m-%d %H:%M:%S')
+  printf "%s - %s\n" "$timestamp" "$message" | tee -a "$LOG_FILE"
 }
 
+# Function to handle errors and exit
 error_exit() {
-  log "❌ ERROR: $1"
+  local message="$1"
+  log "❌ ERROR: $message"
   exit 1
 }
 
+# Function to log warnings
 log_warning() {
-  log "⚠️ WARNING: $1"
+  local message="$1"
+  log "⚠️ WARNING: $message"
 }
 
-# Unified install function
+# Unified install function for CLI tools and Cask apps
 install_package() {
   local type="$1"
   local package="$2"
   local cmd
 
   case "$type" in
-  cli) cmd="brew install" ;;
-  cask) cmd="brew install --cask" ;;
-  *) error_exit "Invalid package type: $type" ;;
+    cli) cmd="brew install" ;;
+    cask) cmd="brew install --cask" ;;
+    *) error_exit "Invalid package type: $type" ;;
   esac
 
-  if ! brew list ${type}s "$package" &>/dev/null; then
+  # Check if package is installed
+  local is_installed=$(brew list ${type}s "$package" &>/dev/null; echo $?)
+
+  if [ "$is_installed" -ne 0 ]; then
     log "🔧 Installing $type: $package..."
     brew update # Update brew before installing
     if ! $cmd "$package"; then
@@ -47,47 +62,7 @@ install_package() {
   fi
 }
 
-# 1. Homebrew
-if ! command -v brew >/dev/null 2>&1; then
-  log "🍺 Installing Homebrew..."
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || error_exit "Homebrew installation failed"
-else
-  log "✅ Homebrew already installed (skipping)"
-fi
-
-# 2. CLI tools
-cli_tools=(node python git ffmpeg python-tk stow starship fish MonitorControl)
-for tool in "${cli_tools[@]}"; do
-  install_package "cli" "$tool"
-done
-
-# 3. GUI apps
-cask_apps=(
-  alacritty font-jetbrains-mono-nerd-font brave-browser google-chrome
-  postman dbeaver-community mongodb-compass visual-studio-code
-  evkey cloudflare-warp karabiner-elements stats
-  openinterminal-lite openineditor-lite dotnet-sdk docker balenaetcher
-  iina notion keka telegram-desktop stremio mos easydict
-)
-
-for app in "${cask_apps[@]}"; do
-  install_package "cask" "$app"
-done
-
-# 4. Đặt Alacritty là terminal mặc định cho OpenInTerminal
-log "⚙️ Setting Alacritty as default terminal for OpenInTerminal..."
-defaults write wang.jianing.app.OpenInTerminal-Lite LiteDefaultTerminal Alacritty
-
-# 5. QuickRecorder từ tap
-if ! brew list quickrecorder &>/dev/null; then
-  log "🔧 Installing QuickRecorder from tap..."
-  brew tap lihaoyun6/tap
-  brew install lihaoyun6/tap/quickrecorder || error_exit "Failed to install QuickRecorder"
-else
-  log "✅ QuickRecorder already installed (skipping)"
-fi
-
-# 6. Fish shell + plugins
+# Function to configure Fish shell
 configure_fish() {
   local fish_path="$(which fish)"
 
@@ -117,13 +92,13 @@ configure_fish() {
     fi
 
     # Install Fish plugins
-    local plugins=(
+    local fish_plugins=(
       gazorby/fish-abbreviation-tips
       jhillyerd/plugin-git
       jethrokuan/z
       jorgebucaran/autopair.fish
     )
-    for plugin in "${plugins[@]}"; do
+    for plugin in "${fish_plugins[@]}"; do
       if ! fish -c "fisher list | grep -q '$plugin'"; then
         log "🔌 Installing Fish plugin: $plugin..."
         fish -c "fisher install $plugin" || error_exit "Failed to install Fish plugin: $plugin"
@@ -136,18 +111,19 @@ configure_fish() {
   fi
 }
 
-configure_fish
-
-# 7. Dotfiles
+# Function to configure dotfiles
 configure_dotfiles() {
-  local dotfiles_dir="$HOME/.dotfiles"
-
-  # Clone dotfiles if not present
+  # Check if dotfiles directory exists
   if [ ! -d "$dotfiles_dir" ]; then
     log "📁 Cloning dotfiles..."
-    git clone https://github.com/Leomin07/dotfiles.git "$dotfiles_dir" || error_exit "Failed to clone dotfiles"
+    git clone "$DOTFILES_REPO" "$dotfiles_dir" || error_exit "Failed to clone dotfiles"
   else
     log "✅ Dotfiles directory already exists (skipping clone)"
+  fi
+
+  # Check if dotfiles directory exists before changing to it
+  if [ ! -d "$dotfiles_dir" ]; then
+    error_exit "Dotfiles directory does not exist: $dotfiles_dir"
   fi
 
   # Stow dotfiles
@@ -155,18 +131,10 @@ configure_dotfiles() {
   cd "$dotfiles_dir" || error_exit "Failed to change directory to dotfiles"
   stow . || error_exit "Failed to stow dotfiles"
 
-  # Reload Alacritty configuration
-  log "🔄 Reloading Alacritty configuration..."
-  if pgrep -x "Alacritty" >/dev/null; then
-    osascript -e 'tell application "Alacritty" to activate' -e 'tell application "System Events" to keystroke "r" using {command down}' || log_warning "Failed to reload Alacritty configuration. Please reload it manually (Cmd+R)."
-  else
-    log "⚠️ Alacritty is not running. Skipping reload."
-  fi
+  
 }
 
-configure_dotfiles
-
-# 8. Git & SSH
+# Function to configure Git and SSH
 configure_git_ssh() {
   log "⚙️ Configuring Git..."
 
@@ -175,19 +143,16 @@ configure_git_ssh() {
   local git_email=$(git config --global user.email)
 
   if [ -z "$git_name" ] || [ -z "$git_email" ]; then
-    git config --global user.name "MinhTD"
-    git config --global user.email "tranminhsvp@gmail.com"
+    git config --global user.name "$GIT_NAME"
+    git config --global user.email "$GIT_EMAIL"
   else
     log "✅ Git user configuration already exists (skipping)"
   fi
 
-  local ssh_key="$HOME/.ssh/id_ed25519"
-  local public_key="${ssh_key}.pub"
-
   # Generate SSH key if not present
   if [ ! -f "$ssh_key" ]; then
     log "🔑 Generating SSH key..."
-    ssh-keygen -t ed25519 -C "tranminhsvp@gmail.com" -f "$ssh_key" -N "" || error_exit "SSH key generation failed"
+    ssh-keygen -t ed25519 -C "$SSH_EMAIL" -f "$ssh_key" -N "" || error_exit "SSH key generation failed"
     eval "$(ssh-agent -s)" || error_exit "Failed to start ssh-agent"
     ssh-add --apple-use-keychain "$ssh_key" || error_exit "Failed to add SSH key to keychain"
     if command -v pbcopy &>/dev/null; then
@@ -202,9 +167,7 @@ configure_git_ssh() {
   fi
 }
 
-configure_git_ssh
-
-# 9. Configure Dock autohide delay
+# Function to configure Dock
 configure_dock() {
   log "⚙️ Configuring Dock..."
 
@@ -218,6 +181,87 @@ configure_dock() {
   fi
 }
 
+# --- Main Execution ---
+
+# 1. Homebrew
+if ! command -v brew >/dev/null 2>&1; then
+  log "🍺 Installing Homebrew..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || error_exit "Homebrew installation failed"
+else
+  log "✅ Homebrew already installed (skipping)"
+fi
+
+# 2. CLI tools
+cli_tools=(
+  node
+  python
+  git
+  ffmpeg
+  python-tk
+  stow
+  starship
+  fish
+  MonitorControl
+)
+for tool in "${cli_tools[@]}"; do
+  install_package "cli" "$tool"
+done
+
+# 3. GUI apps
+cask_apps=(
+  alacritty
+  font-jetbrains-mono-nerd-font
+  brave-browser
+  google-chrome
+  postman
+  dbeaver-community
+  mongodb-compass
+  visual-studio-code
+  evkey
+  cloudflare-warp
+  karabiner-elements
+  stats
+  openinterminal-lite
+  openineditor-lite
+  dotnet-sdk
+  docker
+  balenaetcher
+  iina
+  notion
+  keka
+  telegram-desktop
+  stremio
+  mos
+  easydict
+)
+
+for app in "${cask_apps[@]}"; do
+  install_package "cask" "$app"
+done
+
+# 4. Đặt Alacritty là terminal mặc định cho OpenInTerminal
+log "⚙️ Setting Alacritty as default terminal for OpenInTerminal..."
+defaults write wang.jianing.app.OpenInTerminal-Lite LiteDefaultTerminal Alacritty
+
+# 5. QuickRecorder từ tap
+if ! brew list quickrecorder &>/dev/null; then
+  log "🔧 Installing QuickRecorder from tap..."
+  brew tap lihaoyun6/tap
+  brew install lihaoyun6/tap/quickrecorder || error_exit "Failed to install QuickRecorder"
+else
+  log "✅ QuickRecorder already installed (skipping)"
+fi
+
+# 6. Fish shell + plugins
+configure_fish
+
+# 7. Dotfiles
+configure_dotfiles
+
+# 8. Git & SSH
+configure_git_ssh
+
+# 9. Configure Dock autohide delay
 configure_dock
 
 log "🎉 Thiết lập hoàn tất!"
