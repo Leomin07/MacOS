@@ -232,7 +232,6 @@ cask_apps=(
   telegram-desktop
   stremio
   mos
-  easydict
 )
 
 for app in "${cask_apps[@]}"; do
