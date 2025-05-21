@@ -199,9 +199,7 @@ cli_tools=(
   ffmpeg
   python-tk
   stow
-  starship
   fish
-  MonitorControl
 )
 for tool in "${cli_tools[@]}"; do
   install_package "cli" "$tool"
